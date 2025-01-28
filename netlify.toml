@@ -1,0 +1,4 @@
+[build]
+  base = "order-box-token-app"
+  command = "npm run build"
+  publish = "build"
