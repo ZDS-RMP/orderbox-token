@@ -1,6 +1,7 @@
 [build]
-  command = "npm run build"
-  publish = "build"
+  base = ""  
+  command = "npm run build"  
+  publish = "orderbox-token/build"  
 
 [build.environment]
-  NODE_VERSION = "18.19.0" 
+  NODE_VERSION = "18.19.0"  
