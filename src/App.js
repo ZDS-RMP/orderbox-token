@@ -37,6 +37,36 @@ function App() {
     }
   };
 
+  const handleLifeMartToken = async () => {
+    try {
+      const response = await fetch('https://api.staging.zonedeliveryservices.com/ondemand/v2/store/LifeMartToken', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          key: '4f20b1b9d370a02ef55ffc0b3878afe5',
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch token');
+      }
+
+      const result = await response.json();
+
+      if (result.response.success && result.data) {
+        setToken(result.data);
+        setFetchedToken(result.data);
+      } else {
+        throw new Error('Token not found in response');
+      }
+    } catch (error) {
+      console.error('Error fetching token:', error);
+      setFetchedToken('Error fetching token. Please try again.');
+    }
+  };
+
   const handleCopyToken = () => {
     navigator.clipboard.writeText(fetchedToken).then(() => {
       setIsCopied(true);
@@ -47,9 +77,12 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Order Box Token Fetcher</h1>
+        <h1>Token Fetcher</h1>
         <button className="fetch-button" onClick={handleFetchToken}>
-          Fetch Token
+          Fetch Order Box Token
+        </button>
+        <button className="fetch-button" onClick={handleLifeMartToken}>
+          Fetch LifeMart Token
         </button>
         {fetchedToken && (
           <div className="token-display">
