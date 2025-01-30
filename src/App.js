@@ -6,6 +6,7 @@ function App() {
   const [token, setToken] = useState('');
   const [fetchedToken, setFetchedToken] = useState('');
   const [isCopied, setIsCopied] = useState(false);
+  const [tokenType, setTokenType] = useState('');
 
   const handleFetchToken = async () => {
     try {
@@ -28,6 +29,8 @@ function App() {
       if (result.response.success && result.data) {
         setToken(result.data);
         setFetchedToken(result.data);
+        setTokenType('Order Box Token');
+        
       } else {
         throw new Error('Token not found in response');
       }
@@ -58,6 +61,7 @@ function App() {
       if (result.response.success && result.data) {
         setToken(result.data);
         setFetchedToken(result.data);
+        setTokenType('LifeMart Token');
       } else {
         throw new Error('Token not found in response');
       }
@@ -86,7 +90,7 @@ function App() {
         </button>
         {fetchedToken && (
           <div className="token-display">
-            <h2>Fetched Token:</h2>
+            <h2>{tokenType} Fetched:</h2>
             <div className="token-box">
               <p>{fetchedToken}</p>
               <button className="copy-button" onClick={handleCopyToken}>
